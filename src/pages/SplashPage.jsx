@@ -10,7 +10,7 @@ export default function SplashPage() {
 	const handleEnter = () => {
 		setFade(false)
 		setTimeout(() => {
-			navigate("/login")
+			navigate("/auth/login")
 		}, 500)
 	}
 

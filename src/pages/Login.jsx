@@ -64,7 +64,7 @@ function LoginPage() {
 								<div>
 									<Button className="my-3" onClick={handleLogin} disabled={loggedIn}>Login</Button>
 
-									<h5 hidden={loggedIn}>Don't have an account? Register <Link to={'/registration'}>here</Link></h5>
+									<h5 hidden={loggedIn}>Don't have an account? Register <Link to={'/auth/register'}>here</Link></h5>
 								</div>
 							</> : <Spinner className="mt-5"></Spinner>
 					}
