@@ -17,7 +17,6 @@ export default function Router() {
 						<Route path="/auth/register" element={<Register />} />
 					</Route>
 					<Route path="/" element={<Layout />}>
-
 						<Route path='/home' element={<Home />} />
 					</Route>
 				</Routes>
