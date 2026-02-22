@@ -3,12 +3,19 @@ import { create } from 'zustand'
 import useLoadingStore from './LoadingStore'
 
 const useUserStore = create((set) => ({
-    /*** STATES ***/
+    // === STATES ==================
     currentUser: undefined,
     loggedIn: false,
     loginMessage: undefined,
+    registerMessage: undefined,
+    registerCode: undefined,
 
-    /*** FUNCTIONS ***/
+    // === SETTERS ==================
+
+    setRegisterMessage: (message) => { set(() => ({ registerMessage: message })) },
+    setRegisterCode: (code) => { set(() => ({ registerCode: code })) },
+
+    // === FUNCTIONS ==================
     getCurrentUser: () => {
 
     },
@@ -18,16 +25,20 @@ const useUserStore = create((set) => ({
             useLoadingStore.getState().setLoadingTrue()
 
             setTimeout(async () => {
-                let res = await axios.post(`/loginUser`, requestObj)
+                try {
+                    res = await axios.post(`/authorization/login`, requestObj)
 
-                set(() => ({ loginMessage: res.data.message }))
-                if (res.data.code === 1) {
-                    set(() => ({ loggedIn: true }))
-                } else {
-                    set(() => ({ loggedIn: false }))
+                    set(() => ({ loginMessage: res.data.message }))
+                    if (res.data.code === 1) {
+                        set(() => ({ loggedIn: true }))
+                    } else {
+                        set(() => ({ loggedIn: false }))
+                    }
+                    useLoadingStore.getState().setLoadingFalse()
+                } catch (error) {
+                    useLoadingStore.getState().setLoadingFalse()
+                    set(() => ({ loginMessage: "Error in logging in. Please try again." }))
                 }
-                useLoadingStore.getState().setLoadingFalse()
-
             }, 1000);
         } catch (error) {
             useLoadingStore.getState().setLoadingFalse()
@@ -36,17 +47,38 @@ const useUserStore = create((set) => ({
         }
     },
 
-    createNewUser: async () => {
+    createNewUser: async (requestObj, verified = false) => {
         try {
-            let requestObj = {
-                firstName: "Ryan",
-                lastName: "Teranishi",
-                username: "The Shotei Ohani",
-                password: 'password',
-                email: 'randomEmail@email.com'
-            }
-            let res = await axios.post(`/userInfo`, requestObj)
+            let res
+            useLoadingStore.getState().setLoadingTrue()
+            setTimeout(async () => {
+                try {
+                    requestObj.verified = verified
+                    res = await axios.post(`/authorization/register`, requestObj)
+
+
+                    set(() => ({
+                        registerCode: res.data.code,
+                        registerMessage: res.data.message
+                    }))
+
+                    useLoadingStore.getState().setLoadingFalse()
+                } catch (error) {
+                    useLoadingStore.getState().setLoadingFalse()
+                    set(() => ({
+                        registerCode: 3,
+                        registerMessage: "An error occured in registering account."
+                    }))
+                }
+            }, 1000);
+
+            return res
         } catch (error) {
+            set(() => ({
+                registerCode: 3,
+                registerMessage: "An error occured in registering account."
+            }))
+        } finally {
 
         }
     },
