@@ -23,14 +23,17 @@ const useUserStore = create((set) => ({
     loginUser: (requestObj) => {
         try {
             useLoadingStore.getState().setLoadingTrue()
-
+            let res
             setTimeout(async () => {
                 try {
                     res = await axios.post(`/authorization/login`, requestObj)
 
                     set(() => ({ loginMessage: res.data.message }))
                     if (res.data.code === 1) {
-                        set(() => ({ loggedIn: true }))
+                        set(() => ({ 
+                            loggedIn: true,
+                            currentUser: res.data.user
+                         }))
                     } else {
                         set(() => ({ loggedIn: false }))
                     }
@@ -38,6 +41,7 @@ const useUserStore = create((set) => ({
                 } catch (error) {
                     useLoadingStore.getState().setLoadingFalse()
                     set(() => ({ loginMessage: "Error in logging in. Please try again." }))
+                    console.log(error)
                 }
             }, 1000);
         } catch (error) {
