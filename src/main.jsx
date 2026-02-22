@@ -1,10 +1,14 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+import axios from 'axios';
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
+axios.defaults.baseURL = 'http://localhost:8080/UMS'
+axios.defaults.headers.post["Content-Type"] = 'application/json'
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
     <App />
-  </StrictMode>,
+  </React.StrictMode>
 )
