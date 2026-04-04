@@ -17,7 +17,6 @@ export default function Home() {
     <Fade in={fade}>
       <Container>
         <h1>here is some text</h1>
-        <Button onClick={() => createNewUser()}>click here to add user</Button>
       </Container>
     </Fade>
   )
