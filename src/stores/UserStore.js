@@ -11,7 +11,6 @@ const useUserStore = create((set) => ({
     registerCode: undefined,
 
     // === SETTERS ==================
-
     setRegisterMessage: (message) => { set(() => ({ registerMessage: message })) },
     setRegisterCode: (code) => { set(() => ({ registerCode: code })) },
 

@@ -4,6 +4,7 @@ import SplashPage from "../pages/SplashPage";
 import Layout from "../layout";
 import LoginPage from "../pages/Login";
 import Register from "../pages/Register";
+import Group from "../pages/Group";
 
 
 export default function Router() {
@@ -18,6 +19,7 @@ export default function Router() {
 					</Route>
 					<Route path="/" element={<Layout />}>
 						<Route path='/home' element={<Home />} />
+            <Route path='/group' element={<Group />} />
 					</Route>
 				</Routes>
 			</HashRouter>

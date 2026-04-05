@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import { Button, Container, Fade } from "react-bootstrap";
 import useUserStore from "../stores/UserStore";
 
+
 export default function Home() {
 
   const { createNewUser } = useUserStore()
   const [fade, setFade] = useState(false)
-
+  
   useEffect(() => {
     setTimeout(() => {
       setFade(true)

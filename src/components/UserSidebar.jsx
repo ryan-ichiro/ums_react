@@ -31,7 +31,7 @@ function UserSidebar({ show, setShow }) {
 					<Card.Header><b>User Information</b></Card.Header>
 					<Card.Body>
 						{
-							userOptions.map(option => {
+							currentUser && userOptions.map(option => {
 								const type = option.type
 								if (type === 'Input') {
 									return (
