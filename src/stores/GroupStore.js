@@ -4,23 +4,39 @@ import axios from "axios";
 
 const useGroupStore = create((set, get) => ({
     // === STATES ==================
-    currentGroup: undefined,
+    selectedGroup: undefined,
     groups: undefined, // [{}]
     // === SETTERS ==================
-
+    setSelectedGroup: (group, loadGroup = false) => {
+        set(() => ({ selectedGroup: group }))
+        if (loadGroup) get().loadGroupById(group.id)
+    },
     // === GETTERS ==================
-    getCurrentGroup: () => { return get().currentGroup },
+    getSelectedGroup: () => { return get().selectedGroup },
     // === FUNCTIONS ==================
     loadGroups: async () => {
         try {
             useLoadingStore.getState().setLoadingTrue()
-            
+
             let res = await axios.get(`/group`)
 
             set(() => ({ groups: res.data }))
         } catch (error) {
 
         } finally {
+            useLoadingStore.getState().setLoadingFalse()
+        }
+    },
+    loadGroupById: async (id) => {
+        try {
+            useLoadingStore.getState().setLoadingTrue()
+
+            await axios.get(`/group/${id}`).then((res) => {
+                set(() => ({ selectedGroup: res.data }))
+                return res.data
+            })
+
+        } catch (error) {
             useLoadingStore.getState().setLoadingFalse()
         }
     },

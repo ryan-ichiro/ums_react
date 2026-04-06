@@ -8,6 +8,7 @@ interface header {
   options?: undefined | { true: string, false: string }
   type: any
   cell: Function
+  variant?: undefined | string
 }
 
 interface DataTableProps {
@@ -18,7 +19,12 @@ interface DataTableProps {
 function DataTable({ headers, data }: DataTableProps) {
   return (
     <>
-      <Table>
+      <Table
+        striped
+        bordered
+        hover
+        className="my-3"
+      >
         <thead>
           <tr>
             {headers.map((header, index) => {
@@ -42,8 +48,14 @@ function DataTable({ headers, data }: DataTableProps) {
                     return bool ? <td key={index}>{header.options?.true}</td> : <td>{header.options?.false}</td>
                   } else if (type == Date) {
                     return formatDate(row[key], index)
-                  } else {
-                    return <Button></Button>
+                  } else if (type == Button) {
+                    return (
+                      <td key={index} width={1}>
+                        <Button 
+                        onClick={() => header.cell(row)}
+                        variant={header.variant}>{header.label}</Button>
+                      </td>
+                    )
                   }
                 })}
               </tr>
