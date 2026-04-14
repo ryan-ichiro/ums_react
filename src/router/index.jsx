@@ -21,6 +21,7 @@ export default function Router() {
 					<Route path="/" element={<Layout />}>
 						<Route path='/home' element={<Home />} />
 						<Route path='/group' element={<Group />} />
+						<Route path="/group/groupform/" element={<GroupForm />} />
 						<Route path="/group/groupform/:groupId" element={<GroupForm />} />
 					</Route>
 				</Routes>

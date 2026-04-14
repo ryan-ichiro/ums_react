@@ -17,7 +17,7 @@ export default function NavigationBar() {
 			<Navbar expand="lg" style={{ backgroundColor: 'rgba(43, 48, 53, 0.25)' }}>
 				<Navbar.Brand className="mx-5" style={{ fontSize: '25px' }}>UMS</Navbar.Brand>
 				{currentUser?.admin &&
-					<NavDropdown className="ms-auto mx-3" title="Admin">
+					<NavDropdown className="ms-auto mx-3 nav_item" title="Admin">
             <NavDropdown.Item as={Link} to={"/home"}>
               <FontAwesomeIcon icon={faHome} className="me-1"/>Home
             </NavDropdown.Item>

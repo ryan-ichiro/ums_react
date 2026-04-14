@@ -13,10 +13,11 @@ interface header {
 
 interface DataTableProps {
   headers: header[],
-  data: any[]
+  data: any[],
+  dateFormatter: Function
 }
 
-function DataTable({ headers, data }: DataTableProps) {
+function DataTable({ headers, data, dateFormatter }: DataTableProps) {
   return (
     <>
       <Table
@@ -47,7 +48,7 @@ function DataTable({ headers, data }: DataTableProps) {
                     const bool = row[key]
                     return bool ? <td key={index}>{header.options?.true}</td> : <td>{header.options?.false}</td>
                   } else if (type == Date) {
-                    return formatDate(row[key], index)
+                    return dateFormatter(row[key], index)
                   } else if (type == Button) {
                     return (
                       <td key={index} width={1}>
@@ -68,9 +69,6 @@ function DataTable({ headers, data }: DataTableProps) {
   )
 }
 
-function formatDate(date: Date, index?: any) {
-  const formattedDate = dayjs(date).format("YYYY-MM-DD HH:MM:ss")
-  return <td key={index}>{formattedDate}</td>
-}
+
 
 export default DataTable

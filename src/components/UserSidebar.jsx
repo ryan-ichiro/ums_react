@@ -4,6 +4,7 @@ import { Button, Card, Col, Form, Offcanvas, Row } from "react-bootstrap"
 import useUserStore from "../stores/UserStore"
 import { useState } from "react"
 import { Link } from "react-router-dom"
+import Input from "./util/Input"
 
 function UserSidebar({ show, setShow }) {
 	const { currentUser } = useUserStore()
@@ -13,7 +14,7 @@ function UserSidebar({ show, setShow }) {
 		{ key: 'lastName', label: "Last Name", disable: true, type: 'Input' },
 		{ key: 'email', label: 'Email', disable: true, type: 'Input' },
 		{ key: 'verified', label: "Verified", disable: true, type: 'Input' },
-		{ key: 'edit', label: "Edit", type: 'Button'}
+		{ key: 'edit', label: "Edit", type: 'Button' }
 	])
 
 	return (
@@ -38,8 +39,9 @@ function UserSidebar({ show, setShow }) {
 										<Input
 											val={option.key}
 											label={option.label}
-											disabled={option.disable}
+											disable={option.disable}
 											data={currentUser}
+                      alignRight
 										/>
 									)
 								} else if (type === 'Button') {
@@ -58,19 +60,7 @@ function UserSidebar({ show, setShow }) {
 	)
 }
 
-function Input({ val, label, disabled, data }) {
-	return (
-		<Form.Group as={Row} className="my-2">
-			<Form.Label column sm="4"><b>{label}:</b></Form.Label>
-			<Col>
-				<Form.Control
-					value={data[val]}
-					disabled={disabled}
-				/>
-			</Col>
-		</Form.Group>
-	)
-}
+
 
 
 export default UserSidebar

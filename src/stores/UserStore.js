@@ -2,7 +2,7 @@ import axios from 'axios'
 import { create } from 'zustand'
 import useLoadingStore from './LoadingStore'
 
-const useUserStore = create((set) => ({
+const useUserStore = create((set, get) => ({
     // === STATES ==================
     currentUser: undefined,
     loggedIn: false,
@@ -16,7 +16,7 @@ const useUserStore = create((set) => ({
 
     // === FUNCTIONS ==================
     getCurrentUser: () => {
-
+        return get().currentUser
     },
 
     loginUser: (requestObj) => {

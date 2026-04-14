@@ -37,6 +37,8 @@ const useGroupStore = create((set, get) => ({
             })
 
         } catch (error) {
+            
+        } finally {
             useLoadingStore.getState().setLoadingFalse()
         }
     },
@@ -44,7 +46,22 @@ const useGroupStore = create((set, get) => ({
         try {
             useLoadingStore.getState().setLoadingTrue()
 
-            let res = await axios.put(`/group`, requestObj)
+            let res = await axios.post(`/group`, requestObj)
+
+            return res.data
+        } catch (error) {
+
+        } finally {
+            useLoadingStore.getState().setLoadingFalse()
+        }
+    },
+    updateGroup: async (requestObj, groupId) => {
+        try {
+            useLoadingStore.getState().setLoadingTrue()
+
+            let res = await axios.put(`/group/${groupId}`, requestObj)
+
+            return res.data
         } catch (error) {
 
         } finally {
