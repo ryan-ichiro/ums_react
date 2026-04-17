@@ -7,6 +7,8 @@ import Input from "../components/util/Input"
 import { formatToDateWithTime } from "../components/util/DateFormatter"
 import Date from "../components/util/Date"
 import useUserStore from "../stores/UserStore"
+import DataTable from "../components/util/DataTable"
+import GroupMembersTable from "../components/GroupMembersTable"
 
 function GroupForm() {
   const { selectedGroup, loadGroupById, setSelectedGroup, createGroup, updateGroup } = useGroupStore()
@@ -76,7 +78,9 @@ function GroupForm() {
         <Card className="shadow mt-4">
           <Card.Header style={{ fontSize: '25px' }}><b>Group Members:</b></Card.Header>
           <Card.Body>
-            
+            <GroupMembersTable 
+              
+            />
           </Card.Body>
         </Card>
       </Container>

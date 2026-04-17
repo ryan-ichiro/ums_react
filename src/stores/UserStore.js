@@ -4,7 +4,7 @@ import useLoadingStore from './LoadingStore'
 
 const useUserStore = create((set, get) => ({
     // === STATES ==================
-    currentUser: undefined,
+    currentUser: {id: 1, firstName: "Ryan", lastName: "Teranishi", admin: true},
     loggedIn: false,
     loginMessage: undefined,
     registerMessage: undefined,

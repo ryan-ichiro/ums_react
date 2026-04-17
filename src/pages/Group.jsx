@@ -1,14 +1,17 @@
 import { useEffect } from "react"
 import { Button, Container, Table } from "react-bootstrap"
 import useGroupStore from "../stores/GroupStore"
-import DataTable from "../components/DataTable"
+import DataTable from "../components/util/DataTable"
 import { useNavigate } from "react-router-dom"
 import { formatToDateWithTime } from "../components/util/DateFormatter"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
+import { groupsFE } from "../data/groups"
+import useLoadingStore from "../stores/LoadingStore"
 
 function Group() {
   const { loadGroups, groups, setSelectedGroup } = useGroupStore()
+  const { loadingVal } = useLoadingStore()
   const navigate = useNavigate()
 
   const headers = [
@@ -41,8 +44,10 @@ function Group() {
       <Button className="mt-3" onClick={() => createButtonClicked()}><FontAwesomeIcon icon={faPlus} /> Create Group</Button>
       <DataTable
         headers={headers}
-        data={groups}  
+        data={groupsFE}  
         dateFormatter={formatToDateWithTime}
+        noDataMessage={"No Data Fetched"}
+        loading={loadingVal}
       >
       </DataTable>
     </Container>
